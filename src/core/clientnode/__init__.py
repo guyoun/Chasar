@@ -12,21 +12,27 @@ def mac_address():
     """
     Return the mac address of computer.
     """
-    interface = netifaces.ifaddresses('en0')
-    info = interface[netifaces.AF_LINK]
-    if info:
-        return interface[netifaces.AF_LINK][0]["addr"]
+    interfaces = netifaces.interfaces()
+    for key in interfaces:
+        if key.startswith('en'):
+            interface = netifaces.ifaddresses(key)
+            info = interface[netifaces.AF_LINK]
 
+            if info:
+                return interface[netifaces.AF_LINK][0]["addr"]
 
 def internet_addresses():
     """
     Return the info network.
     """
-    interface = netifaces.ifaddresses('en0')
-    info = interface[netifaces.AF_INET]
-    if info:
-        return interface[netifaces.AF_INET]
+    interfaces = netifaces.interfaces()
+    for key in interfaces:
+        if key.startswith('en'):
+            interface = netifaces.ifaddresses(key)
 
+            info = interface[netifaces.AF_INET]
+            if info:
+                return interface[netifaces.AF_INET]
 
 def pids_active(pids_computer):
     """
