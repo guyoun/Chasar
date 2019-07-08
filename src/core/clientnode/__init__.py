@@ -56,7 +56,7 @@ def pids_active(pids_computer):
     return pid_valid
 
 
-def process_send_data(socket, context):
+def process_send_data(socket, context, client_id):
     """
     Send all memory, cpu, disk, network data of computer to server(master node)
     """
@@ -87,8 +87,8 @@ def process_send_data(socket, context):
                     "total_bytes_free": disk_info.free,
                     "percent_used": disk_info.percent
                 },
-                "process": pids_active(pids_computer)
-
+                "process": pids_active(pids_computer),
+                "client_id": client_id
             }).encode()
             #send json data in the channel 'status', although is not necessary to send.
             socket.send_multipart([b"status", info_to_send])
@@ -108,7 +108,7 @@ def handler_signal_keyboard(socket, context):
     signal.signal(signal.SIGTSTP, handler)
 
 
-def start(ip_address='127.0.0.1', port=5555):
+def start(ip_address='127.0.0.1', port=5555, client_id=None):
     """
     Connect to master node and each one second send data.
     """
@@ -118,4 +118,4 @@ def start(ip_address='127.0.0.1', port=5555):
     socket.sndhwm = 1
     handler_signal_keyboard(socket, context)
 
-    process_send_data(socket, context)
+    process_send_data(socket, context, client_id)

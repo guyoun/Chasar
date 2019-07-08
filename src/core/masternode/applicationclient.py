@@ -13,4 +13,6 @@ class ApplicationClient:
 
     def send(self, data_json):
         print(data_json)
-        self.socket.send_multipart([b"Chasar-Client", data_json])
+        client_id = data_json.get('client_id', None)
+        channel_name = ("Chasar-Client:%s" % client_id)
+        self.socket.send_multipart([channel_name, data_json])
