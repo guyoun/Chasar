@@ -90,7 +90,7 @@ def process_send_data(socket, context, client_id):
                 "process": pids_active(pids_computer)
             }).encode()
             #send json data in the channel 'status', although is not necessary to send.
-            socket.send_multipart([b"status", info_to_send, client_id])
+            socket.send_multipart([b"status", info_to_send, client_id.encode('utf-8')])
             #time.sleep(0.500)
 
         except (KeyboardInterrupt, SystemExit):
