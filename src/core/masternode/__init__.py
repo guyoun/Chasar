@@ -46,11 +46,11 @@ def start(port=5555):
 
     while True:
         try:
-            channel, data_recv = socket.recv_multipart()
+            channel, data_recv, client_id = socket.recv_multipart()
             data_json = json.loads(data_recv.decode())
 
             #data_pre_format[data_json["mac_address"]] = data_json
-            app_client.send(json.dumps(data_json).encode())
+            app_client.send(json.dumps(data_json).encode(), client_id)
 
         except (KeyboardInterrupt, SystemExit):
 
