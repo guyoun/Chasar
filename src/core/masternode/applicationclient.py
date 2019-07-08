@@ -11,7 +11,7 @@ class ApplicationClient:
         self.socket.bind("tcp://*:%s" % port)
         self.socket.sndhwm = 1
 
-    def send(self, client_id, data_json):
+    def send(self, data_json, client_id):
         print(data_json)
         channel_name = ("Chasar-Client:%s" % client_id)
 
