@@ -50,7 +50,7 @@ def start(port=5555):
             data_json = json.loads(data_recv.decode())
 
             #data_pre_format[data_json["mac_address"]] = data_json
-            app_client.send(json.dumps(data_json).encode(), client_id)
+            app_client.send(json.dumps(data_json).encode(), client_id.decode())
 
         except (KeyboardInterrupt, SystemExit):
 
