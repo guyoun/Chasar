@@ -8,7 +8,7 @@ setup(
     license='MIT',
     packages=["masternode", "clientnode"],
     package_dir={'': 'src/core'},
-    install_requires=["pyzmq", "psutil", "future", "netifaces"],
+    install_requires=["pyzmq", "psutil", "future", "netifaces", "redis"],
     scripts=['src/core/chasar'],
     include_package_data=True
 

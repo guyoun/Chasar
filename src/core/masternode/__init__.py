@@ -4,7 +4,7 @@ import json
 import signal
 import sys
 from . import applicationclient
-
+from . import redisclient
 
 def create_socket(port):
     """
@@ -42,6 +42,8 @@ def start(port=5555):
     handler_signal_keyboard(socket, context)
 
     app_client = applicationclient.ApplicationClient()
+    redis_client = redisclient.RedisClient()
+
     data_pre_format = {}
 
     while True:
@@ -52,6 +54,8 @@ def start(port=5555):
             #data_pre_format[data_json["mac_address"]] = data_json
             app_client.send(json.dumps(data_json).encode(), client_id.decode())
 
+            # save redis
+            redis_client.save(json.dumps(data_json), client_id)
         except (KeyboardInterrupt, SystemExit):
 
             socket.close()
