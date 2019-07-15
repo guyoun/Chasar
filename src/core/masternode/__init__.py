@@ -55,7 +55,7 @@ def start(port=5555):
             app_client.send(json.dumps(data_json).encode(), client_id.decode())
 
             # save redis
-            redis_client.save(json.dumps(data_json), client_id)
+            redis_client.save(json.dumps(data_json), client_id.decode())
         except (KeyboardInterrupt, SystemExit):
 
             socket.close()
